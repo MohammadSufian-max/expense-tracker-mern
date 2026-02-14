@@ -20,8 +20,7 @@ It allows users to manage income and expenses with real-time updates and persist
 
 Frontend:
 - React
-- Axios
-- CSS
+- TailwindCSS
 
 Backend:
 - Node.js
