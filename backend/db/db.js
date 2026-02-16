@@ -1,10 +1,14 @@
-const mongoos = require('mongoose');
-const connectDB = async()=>{
-    try {
-        await mongoos.connect('mongodb+srv://deadlock:asrasr123@cluster0.mnhdnpb.mongodb.net/?retryWrites=true&w=majority')
-            console.log("Connected!!!")
-    } catch (error) {
-        console.log("Not Connected!!")
-    }
-}
-module.exports = connectDB
+const mongoose = require("mongoose");
+
+const connectDB = async () => {
+  try {
+    await mongoose.connect(process.env.MONGO_URI);
+
+    console.log("MongoDB Connected");
+  } catch (error) {
+    console.error("MongoDB Error:", error.message);
+    process.exit(1); // VERY IMPORTANT
+  }
+};
+
+module.exports = connectDB;
