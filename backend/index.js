@@ -1,9 +1,6 @@
-const express = require('express');
-const cors = require('cors');
-const dotenv = require('dotenv');
-const connectDb = require("./db/db");
-const userRouter = require('./router/userRouter');
-const expenseRouter = require('./router/expenseRouter');
+const express = require("express");
+const cors = require("cors");
+const dotenv = require("dotenv");
 
 dotenv.config();
 
@@ -12,20 +9,21 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Health check route (VERY IMPORTANT)
+// health route FIRST
 app.get("/", (req, res) => {
-    res.status(200).send("OK");
+  res.status(200).send("OK");
 });
 
-app.use('/auth', userRouter);
-app.use('/expenses', expenseRouter);
+// routes
+app.use("/auth", require("./router/userRouter"));
+app.use("/expenses", require("./router/expenseRouter"));
 
-// Start server FIRST
+// start server immediately
 const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, "0.0.0.0", () => {
-    console.log(`Server running on ${PORT}`);
+  console.log("Server running on", PORT);
 });
 
-// THEN connect DB
-connectDb();
+// connect DB AFTER server start
+require("./db/db")();
