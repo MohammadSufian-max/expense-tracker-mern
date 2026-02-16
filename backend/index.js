@@ -5,14 +5,14 @@ const connectDb = require("./db/db");
 const userRouter = require('./router/userRouter');
 const expenseRouter = require('./router/expenseRouter');
 
-dotenv.config(); // load env vars
+dotenv.config();
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-// ROOT ROUTE (for Railway test)
+// Root route
 app.get("/", (req, res) => {
     res.send("API is running...");
 });
@@ -22,9 +22,9 @@ app.use('/expenses', expenseRouter);
 
 connectDb();
 
-// FIXED PORT
-const port = process.env.PORT || 4000;
+// VERY IMPORTANT LINE
+const PORT = process.env.PORT;
 
-app.listen(port, () => {
-    console.log(`Server on :- ${port}`);
+app.listen(PORT, "0.0.0.0", () => {
+    console.log(`Server running on ${PORT}`);
 });
