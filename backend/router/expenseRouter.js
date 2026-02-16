@@ -2,6 +2,10 @@ const { createExpense, deleteExpense, getCategoryExpense, getAllExpenses, emailS
 
 const router = require('express').Router();
 
+router.get("/", (req, res) => {
+  res.json({ message: "Expenses API working" });
+});
+
 router.post('/addExpense',createExpense)
 router.post('/deleteExpense',deleteExpense)
 router.get('/categoryExpense',getCategoryExpense)
