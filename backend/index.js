@@ -12,19 +12,20 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Root route
+// Health check route (VERY IMPORTANT)
 app.get("/", (req, res) => {
-    res.send("API is running...");
+    res.status(200).send("OK");
 });
 
 app.use('/auth', userRouter);
 app.use('/expenses', expenseRouter);
 
-connectDb();
-
-// VERY IMPORTANT LINE
-const PORT = process.env.PORT;
+// Start server FIRST
+const PORT = process.env.PORT || 8080;
 
 app.listen(PORT, "0.0.0.0", () => {
     console.log(`Server running on ${PORT}`);
 });
+
+// THEN connect DB
+connectDb();
